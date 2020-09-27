@@ -1,0 +1,123 @@
+{% extends 'bash.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluied">
+	<div class="row m-2">
+		<div class="col-md-4">
+			<div class="card text-center mb-3">
+			<div class="card-header">	
+			<h4 class="card-title">Total order</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{totalorder}}</h3>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-4" >
+			<div class="card text-center mb-3">
+			<div class="card-header" id="card-custom-head">	
+			<h4 class="card-title">Order Deliverd</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{orderdeliverd}}</h3>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card text-center mb-3">
+			<div class="card-header">	
+			<h4 class="card-title">Order Panding</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{orderepanging}}</h3>
+				
+			</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="row m-2">
+		<div class="col-md-4">
+			<h2>CUSTOMERS</h2>
+			<div class="card">
+			<div class="m-2"><a href="{% url 'create_customer' %}" class="btn btn-primary btn-block">Create customer</a></div>
+			<div style="max-height: 18rem" class="tablebox overflow-auto" >
+				<table class="table">
+					<tr>
+						<th scope="col">
+							customer
+						</th>
+						<th scope="col">
+							Phone
+						</th>
+						<th scope="col"> 
+							
+						</th>
+					</tr>
+					{% for customer in customers %}
+					<tr>
+						<td scope="col">{{customer.name}}</td>
+						<td scope="col">{{customer.phone}}</td>
+						<td><a href="{% url 'customer' customer.id %}" class="btn btn-outline-primary">see profile</a></td>
+					</tr>
+					{% endfor %}
+				</table>				
+			</div>
+		</div>
+		</div>
+		<div class="col-md-8 ">
+			<h2>LAST 5 ORDERS</h2>
+			<div class="card">
+			<div class="m-2"><a href="{% url 'create_order' %}" class="btn btn-primary btn-block">Create Order</a></div>
+			<div style="max-height: 18rem" class="tablebox overflow-auto">
+				<table class="table">
+					<tr>
+						<th scope="col">
+							Product
+						</th>
+						<th scope="col">
+							Date order
+						</th>
+						<th scope="col">
+							status
+						</th>						
+						<th scope="col">
+							Update
+						</th>					
+						<th scope="col">
+							remove
+						</th>
+					</tr>
+					{% for order in orders %}
+					<tr>
+						<td scope="col">
+							{{order.product}}
+						</td>
+						<td scope="col">
+							{{order.date_created}}
+						</td>
+						<td scope="col">
+							{{order.status}}
+						</td>						
+						<td scope="col">
+							<a href="{% url 'create_order' order.id %}" class="btn btn-primary">Update</a>
+						</td>					
+						<td scope="col">
+							<!-- <a href="{% url 'delete_order' order.id %}" class="btn btn-danger">Delete</a> -->
+						<form action="{% url 'delete_order' order.id %}"method="POST">
+							{% csrf_token %} 
+							<input  type="submit" name="delete"  value="DELETE" class="btn btn-danger">
+						</form>							
+						</td>
+					</tr>
+
+					{% endfor %}
+				</table>				
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

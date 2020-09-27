@@ -1,0 +1,87 @@
+{% extends 'bash.html' %}
+
+{% block content %}
+<div class="container-fluied">
+	<div class="row m-2">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h4>Customer</h4>
+				</div>
+				<div class="card-body">
+					<a type="button" href="{% url 'update_customer' customer.id %}" class="btn btn-sm btn-outline-primary btn-block my-1">Update Customer</a>
+						<form action="{% url 'delete_customer' customer.id %}"method="POST">
+							{% csrf_token %} 
+							<input  type="submit" name="delete"  value="Delete Customer" class="btn btn-sm btn-outline-danger btn-block">
+						</form>	
+
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h4>Contect Information</h4>
+				</div>
+				<div class="card-body">
+					<h5>Email : {{customer.email}}</h5>
+					<h5>Phone : {{customer.phone}}</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h4>Total Order</h4>
+				</div>
+				<div class="card-body">
+					<h4>{{totalorder}}</h4>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<!-- filter row -->
+	<div class="row my-2 mx-4">
+		<div class="col card">
+			<div class="card-body">
+				<form>
+					{{myFilter.form.as_p}}
+				<button type="submit" class="btn btn-primary"> Search</button>
+			</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- content row -->
+	<div class="row m-2">
+		<div class="col">
+			<div class="card">
+			<table class="table">
+				<tr class="card-body">
+					<th scope="col">Product</th>
+					<th scope="col">Category</th>
+					<th scope="col">Order Date</th>
+					<th scope="col">Status</th>
+					<th scope="col">Update</th>
+					<th scope="col">Remove</th>
+				</tr>
+				{% for order in orders %}
+				<tr>
+					<td scope="col">{{order.product.name}}</td>
+					<td scope="col">{{order.product.category}}</td>
+					<td scope="col">{{order.date_created}}</td>
+					<td scope="col">{{order.status}}</td>
+					<td scope="col"><a href="#" class="btn btn-primary">Update</a></td>
+					<td scope="col"><a href="#" class="btn btn-danger">Remove</a></td>
+
+				</tr>
+				{% endfor %}
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

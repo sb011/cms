@@ -1,0 +1,72 @@
+{% extends 'bash.html' %}
+{% load static %}
+
+{% block content %}
+	<div class="row m-2">
+		<div class="col-md-4">
+			<div class="card text-center mb-3">
+			<div class="card-header">	
+			<h4 class="card-title">Total order</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{totalorder}}</h3>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-4" >
+			<div class="card text-center mb-3">
+			<div class="card-header" id="card-custom-head">	
+			<h4 class="card-title">Order Deliverd</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{orderdeliverd}}</h3>
+			</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card text-center mb-3">
+			<div class="card-header">	
+			<h4 class="card-title">Order Panding</h4>
+			</div>
+			<div class="card-body">
+				<h3>{{orderepanging}}</h3>
+				
+			</div>
+			</div>
+		</div>
+
+	</div>
+			<div class="card m-3">
+			<div class="m-2"><a href="{% url 'create_order' %}" class="btn btn-primary btn-block">Create Order</a></div>
+			<div style="max-height: 18rem" class="tablebox overflow-auto">
+				<table class="table">
+					<tr>
+						<th scope="col">
+							Product
+						</th>
+						<th scope="col">
+							Date order
+						</th>
+						<th scope="col">
+							status
+						</th>						
+					</tr>
+					{% for order in orders %}
+					<tr>
+						<td scope="col">
+							{{order.product}}
+						</td>
+						<td scope="col">
+							{{order.date_created}}
+						</td>
+						<td scope="col">
+							{{order.status}}
+						</td>						
+
+					</tr>
+
+					{% endfor %}
+				</table>				
+			</div>
+		</div>	
+{% endblock %}

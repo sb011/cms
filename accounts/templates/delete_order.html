@@ -1,0 +1,15 @@
+{% extends 'bash.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card m-5">
+<p class="m-3">Are you sure you want to delete ?</p>
+
+<form method="POST">
+	{% csrf_token %}
+	<a href="{% url 'home' %}" 	class="btn btn-primary  m-3">cancle</a>
+	<input  type="submit" name="delete"  value="DELETE" class="m-3 btn btn-danger">
+</form>
+</div>
+
+{% endblock %}
